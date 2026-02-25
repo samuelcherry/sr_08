@@ -23,7 +23,8 @@ const Login = () =>{
             if(response.ok){
                 console.log("Login Successful")
                 localStorage.setItem("token", data.token)
-                localStorage.setItem("userId", data.token.id)
+                localStorage.setItem("userId", data.userId)
+                console.log("userId in Login.tsx: ",data.token.id)
                 navigate("/")
             }else{
                 console.error("Login error")
