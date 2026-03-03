@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import fetchPosts from "../API/fetchPosts";
+import { useEffect } from "react";
 import deletePosts from "../API/deletePosts";
 
 interface Posts {
@@ -10,17 +9,24 @@ interface Posts {
 }
 
 interface MainContentProps {
-  posts: any;
+  posts: Posts[];
   setPosts: any;
   onRefresh: any;
 }
 
-const MainContent = ({ posts, setPosts, onRefresh }: MainContentProps) => {
+const MainContent = ({ posts = [], onRefresh }: MainContentProps) => {
+  console.log("post array:", posts);
+  useEffect(() => {
+    onRefresh();
+  }, []);
+
   const handleDelete = async (e: React.MouseEvent, postId: string) => {
     e.preventDefault();
     deletePosts(postId);
     onRefresh();
   };
+
+  console.log("posts: ", posts);
 
   return (
     <>

@@ -91,14 +91,14 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/posts", async (req, res) => {
-  try {
+  /*  try {
     const { content, userId } = req.body;
     const postAddQuery = await pool.query(
       `
-                INSERT INTO posts(content, "userId")
-                VALUES($1,$2)
-                RETURNING "postId", "userId", content
-            `,
+        INSERT INTO posts(content, "userId")
+        VALUES($1,$2)
+        RETURNING "postId", "userId", content
+      `,
       [content, userId],
     );
 
@@ -108,9 +108,13 @@ app.post("/posts", async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: "Posting Error", error });
   }
+*/
+
+  res.status(200).json({ message: "TEST" });
 });
 
 app.get("/posts", async (req, res) => {
+  console.log("TEST");
   try {
     const result = await pool.query(`
         SELECT
@@ -120,11 +124,14 @@ app.get("/posts", async (req, res) => {
         JOIN users
             ON posts."userId" = "id"
     `);
+    console.log("QUERY: ", result);
     res.json(result.rows);
   } catch (err) {
     console.error("fetch Error");
     res.json({ message: "Fetch errors" });
   }
+
+  res.status(200).json({ message: "TEST" });
 });
 
 app.delete("/posts/:id", async (req, res) => {
